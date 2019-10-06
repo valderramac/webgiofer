@@ -1,0 +1,104 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  Your shopping cart
+{% endblock %}
+
+{% block content %}
+<h1>Regalos</h1>
+<section class="bigCart">
+
+  <table class="cart">
+    <thead>
+      <!-- <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Unit price</th>
+        <th>Price</th>
+      </tr> -->
+      <tr>
+        <th></th>
+
+        <th></th>
+        <th></th>
+        <!-- <th>Unit price</th> -->
+        <th>SubTotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>
+              <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+              </a>
+            </td>
+            <td class="tdDescripcion">
+              {{ product.name }}<br>
+              <span style="font-size: 13px;" >Precio unitario </span> <span class="num">${{ item.price }}</span><br />
+              <a href="{% url "cart:cart_remove" product.id%}">- Remover</a>
+            </td>
+
+            <td>
+              <form action="{% url "cart:cart_add" product.id %}" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <!-- <input style= "visibility: hidden;" id="id_stock" type="number" value="1" name="quantity" min="1" max="{{ product.stock }}"> -->
+                <input type="submit" value="Update">
+                {% csrf_token %}
+              </form>
+            </td>
+            
+            <!-- <td><a href="{% url "cart:cart_remove" product.id%}">Remove</a></td> -->
+            <!-- <td class="num">${{ item.price }}</td> -->
+
+            <td class="num">${{ item.total_price }}</td>
+  <!-- <div style="width: 100%; background:red; height: 10px;"></div> -->
+          </tr>
+
+
+
+        {% endwith %}
+
+      {% endfor %}
+
+
+
+
+    </tbody>
+  </table>
+
+
+  <div class="viewTotal">
+  <div class="total">
+
+    <ul style="color: grey; padding: 0;">
+      {% for item in cart %}
+        <li>
+          {{ item.quantity }}x {{ item.product.name }}:
+          <span style="color: black;">${{ item.total_price }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div>Total</div>
+
+    <div class="num">${{ cart.get_total_price }}</div>
+  </div>
+
+
+  <p class="text-right btnsCheck">
+    <a href="{% url "shop:product_list" %}" class="btnContinue">Ver Más Productos</a>
+    <a href="{% url "orders:order_create" %}" class="btnCheck">
+      Checkout
+    </a>
+  </p>
+
+    </div>
+
+    </section>
+{% endblock %}

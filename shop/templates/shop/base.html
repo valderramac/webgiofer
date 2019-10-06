@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Danny y Chris{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato|Manjari|Quicksand|Raleway|Roboto:300|Slabo+27px&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1d3a34996b.js"></script>
+
+</head>
+<body>
+<div id="iconScroll">
+  <img src="{% static "img/iconScroll.png" %}" alt="scroll">
+</div>
+  <div id="header">
+    <div id="subheader">
+      <div class="cart">
+        <span class="fas fa-shopping-cart"></span>
+        {% with total_items=cart|length %}
+          {% if cart|length > 0 %}
+            <!-- Tus compras: -->
+            <a href="{% url "cart:cart_detail" %}">
+              {{total_items}} regalo{{total_items|pluralize}},
+              ${{ cart.get_total_price }}
+            </a>
+          {% else %}
+          Tu carrito est&aacute; vac&iacute;o.
+          {% endif %}
+          {% endwith %}
+      </div>
+
+    </div>
+
+      <a href="/" class="logo">
+        <img id="idLogo" src="{% static "img/dcLogo.png" %}" width=50 />
+        Danny y Chris
+      </a>
+
+      <nav id="idNav">
+
+        <a href="/">INFORMACIÓN</a>
+        <a href="{% url "shop:mapa_detail" %}">MAPA</a>
+        <a href="{% url "shop:hotel_detail" %}">HOTELES</a>
+        <a href="{% url "shop:product_list" %}">MESA DE REGALOS</a>
+
+      </nav>
+
+  </div>
+
+  <div id="content" >
+    {% block content %}
+    {% endblock %}
+  </div>
+
+
+<footer id="footer" data-aos="fade-up" data-aos-anchor-placement="bottom">
+
+
+
+<nav id="idNavFooter">
+
+  <a href="/">INFORMACIÓN</a>
+  <a href="{% url "shop:mapa_detail" %}">MAPA</a>
+  <a href="{% url "shop:hotel_detail" %}">HOTELES</a>
+  <a href="{% url "shop:product_list" %}">MESA DE REGALOS</a>
+
+</nav>
+
+
+</footer>
+
+<footer id="blackFooter">
+
+  <p class="derechos">Derechos reservados 2019. <a>Aviso de privacidad</a></p>
+
+</footer>
+
+
+</body>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+  <script type="text/javascript" src="{% static "js/changeQuantity.js" %}"></script>
+  <!-- <script type="text/javascript" src="{% static "js/moveHome.js" %}"></script> -->
+</html>

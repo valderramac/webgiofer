@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+Informaci&oacute;n
+{% endblock %}
+
+{% block content %}
+
+
+<section class="infoContent">
+
+<!-- <div id="nameInfo">
+  <h3>26 de Marzo del 2020
+  </h3>
+</div> -->
+
+<div id="mainInfo" class="informacion-list" >
+
+  {% for info in infos %}
+    <div class="infoContainer">
+      <div class="infoOut" data-aos="fade-up" data-aos-duration="2000">
+
+            <a href="{{ info.get_absolute_url }}" class="informacion" style="background-image: url({% if info.image %}{{ info.image.url }}{%else %}{% static 'img/no_image.png' %}{% endif %});">
+            <!-- <a href="{{ info.get_absolute_url }}" class="informacion" > -->
+                <!-- <img class="imageInfo" src="{% if info.image %}{{ info.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}"> -->
+                <!-- <p >{{ info.description }}</p> -->
+                <!-- <br> -->
+
+            </a>
+
+
+
+
+            <h3 class="infoName noselectText">{{ info.name }}</h3>
+        </div>
+      </div>
+    {% endfor %}
+
+</div>
+</section>
+
+{% endblock %}

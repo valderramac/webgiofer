@@ -1,0 +1,49 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  Cómo llegar
+{% endblock %}
+
+{% block content %}
+<!-- <div class="topBanner">
+  <img src="{% static "img/banner.jpg" %}" alt="">
+</div> -->
+
+
+
+  <div id="main" class="product-list">
+    <div id="nameMesa">
+      <h1>C&oacute;mo llegar</h1>
+    </div>
+<div class="map_canvas_wrapper">
+
+  <div id="map_canvas">
+    {% for mapa in mapas %}
+    <div class="mapaTexto">
+      <h3>{{ mapa.name }}</h3>
+      <p>{{ mapa.description|safe }}</p>
+      <a href="https://mobile-web.world.waze.com/en_GB/meetup/location?h=9g96013rm">
+      <img class="imgWaze" src="{% static "img/waze-logo.png" %}" alt="waze">
+      </a>
+    </div>
+
+    </div>
+      <a href="https://mobile-web.world.waze.com/en_GB/meetup/location?h=9g96013rm">
+        <img class="imageMapa" src="{% if mapa.image %}{{ mapa.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}">
+      </a>
+    {% endfor %}
+  </div>
+</div>
+    <!-- {% for product in products %}
+      <div class="item">
+        <a href="{{ product.get_absolute_url }}">
+          <img class="focusImage" src="{% if product.image %}{{ product.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+        <br>
+        ${{ product.price }}
+      </div>
+    {% endfor %} -->
+  </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Mesa de regalos{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- <div class="topBanner">
+  <img src="{% static "img/banner.jpg" %}" alt="">
+</div> -->
+
+  <div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li {% if not category %}class="selected"{% endif %}>
+        <a href="{% url "shop:product_list" %}">All</a>
+      </li>
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"
+        {% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+<!-- <div id="nameMesa">
+  <h1>{% if category %}{{ category.name }}{% else %}Mesa de regalos
+  {% endif %}</h1>
+</div> -->
+
+
+
+
+    {% for category in categories %}
+  <section id="byCategory" class="byCategory">
+
+    <p  data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="bottom"> {{ category.name }} </p>
+
+
+  <div id="main" class="product-list">
+
+      {% for product in category.products.all %}
+
+          <div class="item" data-aos="fade-up" data-aos-duration="2000">
+            <a href="{{ product.get_absolute_url }}">
+              <img class="focusImage" src="{% if product.image %}{{ product.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}">
+            </a>
+            <div class="infoItemLeft">
+            <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+            <br>
+            ${{ product.price }}
+          </div>
+
+
+          <div class="infoItemRight">
+            <form action="{% url "cart:cart_add" product.id%}" method="post">
+              <!-- <form action="{% url "cart:cart_add" product.id%}" method="post"> -->
+              <!-- <label id="idLabel" style= "visibility: hidden;" for="id_stock"> Cantidad:</label> -->
+              <input style= "visibility: hidden;" id="id_stock" type="number" value="1" name="quantity" min="1" max="{{ product.stock }}">
+
+              {{ cart_product_form }}
+              {% csrf_token %}
+              <input class="btnRegalar" type="submit" value="REGALAR">
+              </form>
+          </div>
+
+
+        </div>
+
+
+
+
+      {% endfor %}
+
+      </div>
+        </section>
+
+    {% endfor %}
+
+
+
+{% endblock %}

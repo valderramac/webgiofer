@@ -1,0 +1,47 @@
+
+
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ info.name }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="info-detail">
+
+    <img src="{% if info.image %}{{ info.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+
+    <div class="infoGroup">
+      <h1>{{ info.name }}</h1>
+      <p class="infoDescription">{{ info.description|safe }}</p>
+
+      {% if request.path == "/5/codigo-de-vestimenta/informacion/" %}
+      <div class="imageGroup">
+        <img src="{% if info.imagesecond %}{{ info.imagesecond.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+
+        <p class="infoDescription">{{ info.descriptionsecond|safe }}</p>
+
+        <img src="{% if info.imagethird %}{{ info.imagethird.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        <p class="infoDescription">{{ info.descriptionthird|safe }}</p>
+
+        </div>
+        {% endif %}
+
+      {% if request.path == "/7/playlist/informacion/" %}
+      <!-- <p>Hola estoy en playlist</p> -->
+          <form method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+            <input class="inputPlayList" type="submit" value="MANDAR">
+          </form>
+
+      {% endif %}
+
+      <a href="/" class="iconBack">
+        <img src="{% static "img/flecha.png" %}" alt="scroll">
+      </a>
+    </div>
+  </div>
+{% endblock %}

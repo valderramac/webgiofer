@@ -1,0 +1,49 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  Hoteles
+{% endblock %}
+
+{% block content %}
+<!-- <div class="topBanner">
+  <img src="{% static "img/banner.jpg" %}" alt="">
+</div> -->
+
+
+                    <!--
+
+                        foto
+                        nombre
+                        direccion
+                        telefono
+                        link
+                                  -->
+
+
+<div id="nameMesa">
+  <h1>Hoteles cercanos</h1>
+</div>
+<div id="mainHotel" class="product-list">
+
+  {% for hotel in hotels %}
+    <div class="hotelOut">
+        <div class="hotel" data-aos="fade-up" data-aos-duration="2000">
+
+            <a href="{{ hotel.get_absolute_url }}">
+              <img class="focusHotel" src="{% if hotel.image %}{{ hotel.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}">
+            </a>
+            <div class="infoHotel">
+              <h2>{{ hotel.name }}</h2>
+              <p>{{ hotel.description }}</p>
+              <p>{{ hotel.address }}</p>
+              <p>{{ hotel.phone }}</p>
+              <a target="_blank" href="{{ hotel.link }}">Con&oacute;celo ></a>
+            </div>
+
+      </div>
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
