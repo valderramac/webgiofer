@@ -1,4 +1,4 @@
 # dcmesa
-mesa de regalos y página para dc
+página para giofer
 
-django powered mesa de regalos, with payment and blog
+django powered página blog
